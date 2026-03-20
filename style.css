@@ -1,0 +1,486 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --main: #2b6cb0;
+  --main-light: #ebf4ff;
+  --accent: #ed8936;
+  --bg: #f7fafc;
+  --card: #ffffff;
+  --text: #2d3748;
+  --text-light: #718096;
+  --border: #e2e8f0;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 14px rgba(0,0,0,0.08);
+  --sidebar-w: 280px;
+  --content-max: 1200px;
+}
+
+body {
+  font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 15px;
+}
+a { color: var(--main); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+/* ========== HEADER (SWELL風) ========== */
+.swell-header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.swell-header-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.swell-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+}
+.swell-logo-link:hover { color: var(--main); text-decoration: none; }
+.swell-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.swell-site-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.swell-site-name small {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+
+/* ========== BREADCRUMB ========== */
+.swell-breadcrumb {
+  max-width: var(--content-max);
+  margin: 12px auto 0;
+  padding: 0 24px;
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+.swell-breadcrumb a { color: var(--main); }
+
+/* ========== LAYOUT ========== */
+.swell-layout {
+  max-width: var(--content-max);
+  margin: 24px auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.swell-main { flex: 1; min-width: 0; }
+
+/* ========== SIDEBAR ========== */
+.swell-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: sticky;
+  top: 90px;
+}
+.swell-widget {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.swell-widget-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--main);
+  padding: 10px 18px;
+  letter-spacing: 0.05em;
+}
+.swell-archive-list {
+  list-style: none;
+  padding: 8px 0;
+}
+.swell-archive-list li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.swell-archive-list li:last-child a { border-bottom: none; }
+.swell-archive-list li a:hover { background: var(--main-light); text-decoration: none; }
+.swell-archive-list li a.active {
+  background: var(--main-light);
+  color: var(--main);
+  font-weight: 800;
+  border-left: 3px solid var(--main);
+}
+.swell-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--bg);
+  color: var(--text-light);
+  padding: 2px 9px;
+  border-radius: 10px;
+}
+
+/* Theme list */
+.swell-theme-list {
+  list-style: none;
+  padding: 12px 16px;
+}
+.swell-theme-list li {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  border-left: 3px solid transparent;
+}
+.tw1 { background: #ebf4ff; color: #2b6cb0; border-left-color: #4299e1; }
+.tw2 { background: #f0fff4; color: #276749; border-left-color: #48bb78; }
+.tw3 { background: #fffbeb; color: #c05621; border-left-color: #ed8936; }
+.tw4 { background: #faf5ff; color: #6b46c1; border-left-color: #9f7aea; }
+.tw5 { background: #fff5f5; color: #c53030; border-left-color: #fc8181; }
+
+/* Info box */
+.swell-info-box {
+  padding: 14px 18px;
+}
+.swell-info-box p {
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* ========== ARTICLE ========== */
+.swell-article {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.swell-eyecatch {
+  text-align: center;
+  background: linear-gradient(135deg, #ebf4ff 0%, #f0fff4 100%);
+  padding: 40px;
+}
+.swell-eyecatch img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-lg);
+}
+.swell-post-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding: 28px 32px 0;
+  color: var(--text);
+  line-height: 1.4;
+}
+.swell-post-meta {
+  padding: 8px 32px 0;
+}
+.swell-post-content {
+  padding: 20px 32px 36px;
+}
+
+/* ========== SWELL風 ブロック ========== */
+
+/* メインボックス */
+.swell-box-main {
+  background: var(--main-light);
+  border: 1px solid #bee3f8;
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.swell-box-main p {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+/* 見出し H2 */
+.swell-h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  padding: 12px 0 12px 16px;
+  margin: 32px 0 20px;
+  border-left: 4px solid var(--main);
+  background: linear-gradient(90deg, var(--main-light) 0%, transparent 100%);
+}
+
+/* 3カラム */
+.swell-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.swell-col-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.swell-icon-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.swell-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.swell-icon-box strong {
+  font-size: 0.82rem;
+  color: var(--text-light);
+}
+.swell-icon-box p {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 2px 0 0;
+}
+
+/* ステップ */
+.swell-step-list {
+  margin-bottom: 28px;
+  position: relative;
+  padding-left: 36px;
+}
+.swell-step-list::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--border);
+  border-radius: 2px;
+}
+.swell-step {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.swell-step::before {
+  content: attr(data-step);
+  position: absolute;
+  left: -36px;
+  top: 16px;
+  width: 28px;
+  height: 28px;
+  background: var(--main);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+.swell-step-title {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--main);
+  margin-bottom: 4px;
+}
+.swell-step p {
+  font-size: 0.88rem;
+  color: var(--text-light);
+}
+
+/* カードリスト */
+.swell-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.swell-card-list-full {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.swell-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: box-shadow 0.2s, transform 0.2s;
+  color: var(--text);
+}
+.swell-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.swell-card-cat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+.swell-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.cat-analysis { background: #ebf4ff; color: #2b6cb0; }
+.cat-cases { background: #f0fff4; color: #276749; }
+.cat-kw { background: #fffbeb; color: #c05621; }
+.cat-review { background: #faf5ff; color: #6b46c1; }
+.cat-chat { background: #fff5f5; color: #c53030; }
+.cat-data { background: #edf2f7; color: #4a5568; }
+
+/* ========== シート本文コンテンツ ========== */
+.swell-text {
+  margin-bottom: 24px;
+}
+.swell-text p {
+  margin-bottom: 8px;
+  font-size: 0.93rem;
+  line-height: 1.9;
+}
+.swell-text a {
+  color: var(--main);
+  border-bottom: 1px dashed var(--main);
+}
+.swell-text a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  text-decoration: none;
+}
+.swell-text .swell-h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 28px 0 12px;
+  padding: 10px 16px;
+  background: var(--main-light);
+  border-left: 4px solid var(--main);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text);
+}
+.swell-text .swell-numbered {
+  font-weight: 700;
+  color: var(--main);
+  margin-top: 16px;
+  padding-left: 4px;
+}
+.swell-text .swell-date {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--accent);
+  padding: 8px 0;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 12px;
+}
+.swell-text .swell-link {
+  font-size: 0.85rem;
+}
+
+/* テーブル */
+.swell-table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.swell-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.84rem;
+}
+.swell-table th,
+.swell-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.swell-table th {
+  background: var(--main);
+  color: #fff;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+}
+.swell-table tr:nth-child(even) td {
+  background: #f7fafc;
+}
+.swell-table tr:hover td {
+  background: var(--main-light);
+}
+.swell-table a {
+  color: var(--main);
+}
+
+/* ========== FOOTER ========== */
+.swell-footer {
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  background: var(--card);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 960px) {
+  .swell-layout { gap: 24px; }
+  .swell-sidebar { width: 220px; }
+  .swell-columns { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .swell-layout { flex-direction: column; padding: 0 16px; gap: 20px; }
+  .swell-sidebar { width: 100%; position: static; order: 2; }
+  .swell-main { order: 1; }
+
+  .swell-header-inner { padding: 0 16px; }
+  .swell-site-name { font-size: 1rem; }
+  .swell-logo { width: 36px; height: 36px; }
+
+  .swell-post-title { font-size: 1.2rem; padding: 20px 20px 0; }
+  .swell-post-content { padding: 16px 20px 28px; }
+  .swell-post-meta { padding: 8px 20px 0; }
+
+  .swell-columns { grid-template-columns: 1fr; }
+  .swell-card-list { grid-template-columns: 1fr; }
+  .swell-card-list-full { grid-template-columns: 1fr; }
+
+  .swell-eyecatch { padding: 24px; }
+  .swell-eyecatch img { width: 80px; height: 80px; }
+
+  .swell-breadcrumb { padding: 0 16px; }
+
+  .swell-table { font-size: 0.78rem; }
+  .swell-table th, .swell-table td { padding: 7px 10px; }
+
+  .swell-step-list { padding-left: 32px; }
+  .swell-step::before { left: -32px; width: 24px; height: 24px; font-size: 0.7rem; }
+}
