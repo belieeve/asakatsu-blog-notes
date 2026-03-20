@@ -357,6 +357,26 @@ a:hover { color: var(--accent); }
 .cat-chat { background: #fff5f5; color: #c53030; }
 .cat-data { background: #edf2f7; color: #4a5568; }
 
+/* ========== Audio Player ========== */
+.swell-audio-box {
+  margin-bottom: 28px;
+  padding: 24px;
+  background: linear-gradient(135deg, #ebf4ff 0%, #f0fff4 100%);
+  border-radius: var(--radius);
+  border: 1px solid #bee3f8;
+}
+.swell-audio-box .swell-h2 {
+  margin: 0 0 16px;
+  padding: 0;
+  background: none;
+  border-left: none;
+  font-size: 1.05rem;
+}
+.swell-audio-player {
+  width: 100%;
+  border-radius: 8px;
+}
+
 /* ========== シート本文コンテンツ ========== */
 .swell-text {
   margin-bottom: 24px;
