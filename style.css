@@ -159,6 +159,7 @@ a:hover { color: var(--accent); }
 .tw3 { background: #fffbeb; color: #c05621; border-left-color: #ed8936; }
 .tw4 { background: #faf5ff; color: #6b46c1; border-left-color: #9f7aea; }
 .tw5 { background: #fff5f5; color: #c53030; border-left-color: #fc8181; }
+.tw-new { background: #ffe4e6; color: #e11d48; border-left-color: #fb7185; }
 
 /* Info box */
 .swell-info-box {
