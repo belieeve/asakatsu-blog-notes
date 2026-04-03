@@ -356,6 +356,7 @@ a:hover { color: var(--accent); }
 .cat-review { background: #faf5ff; color: #6b46c1; }
 .cat-chat { background: #fff5f5; color: #c53030; }
 .cat-data { background: #edf2f7; color: #4a5568; }
+.cat-new { background: #ffe4e6; color: #e11d48; }
 
 /* ========== Audio Player ========== */
 .swell-audio-box {
