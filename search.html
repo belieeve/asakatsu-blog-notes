@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サイト内検索 | 朝活ブログ部</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="images/logo.jpg">
+</head>
+<body>
+<header class="swell-header">
+  <div class="swell-header-inner">
+    <a href="index.html" class="swell-logo-link">
+      <img src="images/logo.jpg" alt="朝活ブログ部" class="swell-logo">
+      <span class="swell-site-name">朝活ブログ部<small>交流勉強会資料</small></span>
+    </a>
+  </div>
+</header>
+
+<div class="swell-layout">
+  <main class="swell-main">
+<article class="swell-article">
+  <h1 class="swell-post-title" id="search-title">🔍 サイト内検索</h1>
+  <div class="swell-post-content">
+    <form class="swell-search-page-form" action="search.html" method="get">
+      <input type="text" name="q" id="search-page-input" class="swell-search-page-input" placeholder="キーワードを入力..." autocomplete="off" required>
+      <button type="submit" class="swell-search-page-btn">検索</button>
+    </form>
+    <div id="search-status" class="swell-search-status"></div>
+    <div id="search-results" class="swell-search-page-results"></div>
+  </div>
+</article>
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var q = (params.get('q') || '').trim();
+  var input = document.getElementById('search-page-input');
+  var status = document.getElementById('search-status');
+  var resultsEl = document.getElementById('search-results');
+  var titleEl = document.getElementById('search-title');
+  if (q) {
+    input.value = q;
+    titleEl.textContent = '🔍 検索結果：' + q;
+    document.title = '検索：' + q + ' | 朝活ブログ部';
+  }
+  if (!q) { return; }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  fetch('search-index.json').then(function(r) { return r.json(); }).then(function(data) {
+    var ql = q.toLowerCase();
+    var keywords = ql.split(/\s+/).filter(Boolean);
+    var scored = [];
+    data.forEach(function(a) {
+      var titleL = (a.title + ' ' + (a.heading || '')).toLowerCase();
+      var headingL = (a.headings || '').toLowerCase();
+      var contentL = (a.content || '').toLowerCase();
+      var score = 0;
+      var matchedAll = true;
+      keywords.forEach(function(kw) {
+        var hit = false;
+        if (titleL.indexOf(kw) >= 0) { score += 10; hit = true; }
+        if (headingL.indexOf(kw) >= 0) { score += 5; hit = true; }
+        if (contentL.indexOf(kw) >= 0) {
+          score += 1;
+          // 出現回数加点
+          var re = new RegExp(escapeRegExp(kw), 'g');
+          var matches = contentL.match(re);
+          if (matches) score += matches.length * 0.3;
+          hit = true;
+        }
+        if (!hit) matchedAll = false;
+      });
+      if (matchedAll && score > 0) {
+        // 該当箇所のスニペット抽出
+        var snippet = '';
+        var pos = contentL.indexOf(keywords[0]);
+        if (pos >= 0) {
+          var start = Math.max(0, pos - 40);
+          var end = Math.min(a.content.length, pos + 120);
+          snippet = (start > 0 ? '…' : '') + a.content.substring(start, end) + (end < a.content.length ? '…' : '');
+        } else {
+          snippet = a.content.substring(0, 160) + '…';
+        }
+        scored.push({ article: a, score: score, snippet: snippet });
+      }
+    });
+    scored.sort(function(a, b) { return b.score - a.score; });
+
+    if (scored.length === 0) {
+      status.textContent = '該当する記事は見つかりませんでした。';
+      return;
+    }
+    status.textContent = scored.length + '件の記事が見つかりました。';
+
+    var html = '';
+    scored.forEach(function(item) {
+      var a = item.article;
+      var titleHtml = escapeHtml(a.heading || a.title);
+      var snippetHtml = escapeHtml(item.snippet);
+      keywords.forEach(function(kw) {
+        var re = new RegExp('(' + escapeRegExp(kw) + ')', 'gi');
+        titleHtml = titleHtml.replace(re, '<mark>$1</mark>');
+        snippetHtml = snippetHtml.replace(re, '<mark>$1</mark>');
+      });
+      html += '<a class="swell-search-card" href="articles/' + encodeURIComponent(a.title) + '.html">' +
+        '<div class="swell-search-card-month">' + escapeHtml(a.month) + '</div>' +
+        '<div class="swell-search-card-title">' + titleHtml + '</div>' +
+        '<div class="swell-search-card-snippet">' + snippetHtml + '</div>' +
+        '</a>';
+    });
+    resultsEl.innerHTML = html;
+  }).catch(function(err) {
+    status.textContent = '検索インデックスの読み込みに失敗しました。';
+  });
+})();
+</script>
+</main>
+  <aside class="swell-sidebar">
+<div class="swell-widget">
+  <h3 class="swell-widget-title">サイト内検索</h3>
+  <form class="swell-search-box" action="search.html" method="get">
+    <input type="text" name="q" class="swell-search-input" placeholder="記事を検索..." autocomplete="off" required>
+    <button type="submit" class="swell-search-btn">🔍 検索</button>
+  </form>
+</div>
+
+<div class="swell-widget">
+  <h3 class="swell-widget-title">新着記事</h3>
+  <ul class="swell-archive-list">
+<li><a href="articles/4月5週目.html">4月5週目</a></li>
+<li><a href="articles/4月4週目.html">4月4週目</a></li>
+<li><a href="articles/4月3週目.html">4月3週目</a></li>
+<li><a href="articles/4月1週目.html">4月1週目</a></li>
+<li><a href="articles/3月まとめ.html">3月まとめ</a></li>
+
+  </ul>
+</div>
+</aside>
+</div>
+<footer class="swell-footer">
+  <p>&copy; 2026 朝活ブログ部</p>
+</footer>
+</body>
+</html>
