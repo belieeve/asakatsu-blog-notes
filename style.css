@@ -110,6 +110,24 @@ a:hover { color: var(--accent); }
   letter-spacing: 0.05em;
 }
 
+/* 新着記事ウィジェット ラベル */
+.swell-archive-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.swell-archive-label {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--main-light);
+  color: var(--main);
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* サイト内検索 - サイドバーフォーム */
 .swell-search-box {
   padding: 14px 18px;
