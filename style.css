@@ -893,19 +893,110 @@ h3.swell-h3::after {
   border-top: 1px solid #e2e8f0;
 }
 
-/* 16:9のヒーローロゴ（トップページ） */
-.swell-eyecatch.is-hero {
-  padding: 0;
-  background: none;
-  line-height: 0;
+
+/* 記事採点ツールへの導線 */
+.swell-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 12px;
 }
-.swell-eyecatch.is-hero img {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
+.swell-header-tool {
+  margin-left: auto;
+  display: inline-block;
+  background: var(--accent, #ed8936);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.swell-header-tool:hover { background: #dd7722; color: #fff; text-decoration: none; }
+.swell-widget-tool .swell-tool-lead {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  margin: 0 0 12px;
+  color: var(--text-light, #64748b);
+}
+.swell-tool-btn {
+  display: block;
+  text-align: center;
+  background: var(--accent, #ed8936);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 11px 12px;
+  border-radius: 8px;
+}
+.swell-tool-btn:hover { background: #dd7722; color: #fff; text-decoration: none; }
+@media (max-width: 600px) {
+  .swell-header-tool { font-size: 0.74rem; padding: 7px 11px; }
+}
+
+/* ========== トップページのヒーロー（16:9・元ロゴを主役に） ========== */
+.swell-hero {
+  position: relative;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 0;
-  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 4vw, 48px);
+  padding: clamp(14px, 5vw, 56px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 76% 64%, rgba(237, 137, 54, 0.55), rgba(237, 137, 54, 0) 46%),
+    linear-gradient(160deg, #0f2f57 0%, #1f4e82 52%, #2b6cb0 100%);
 }
-.swell-logo { border-radius: 50%; background: #123a68; }
+.swell-hero::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: -18%;
+  height: 46%;
+  background: rgba(8, 26, 51, 0.55);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+}
+.swell-hero-text { position: relative; z-index: 1; color: #fff; }
+.swell-hero-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.swell-hero-bar {
+  display: block;
+  width: clamp(40px, 9vw, 92px);
+  height: clamp(4px, 0.7vw, 7px);
+  margin: clamp(8px, 1.6vw, 18px) 0;
+  border-radius: 99px;
+  background: #ed8936;
+}
+.swell-hero-sub {
+  margin: 0;
+  font-size: clamp(0.72rem, 1.9vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #cfe2f7;
+}
+.swell-hero-en {
+  margin: clamp(4px, 1vw, 12px) 0 0;
+  font-size: clamp(0.52rem, 1.15vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  color: #8fb6df;
+}
+.swell-hero-logo { position: relative; z-index: 1; flex: 0 0 auto; }
+.swell-hero-logo img {
+  display: block;
+  width: clamp(88px, 27vw, 300px);
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
+  outline: clamp(3px, 0.6vw, 7px) solid rgba(255, 255, 255, 0.9);
+  outline-offset: 0;
+}
