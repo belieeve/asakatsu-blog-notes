@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/tools/score", "destination": "https://asakatsu-article-scorer.hosomashiso-s.workers.dev/" },
-    { "source": "/tools/score/:path*", "destination": "https://asakatsu-article-scorer.hosomashiso-s.workers.dev/:path*" }
+    { "source": "/tools/score", "destination": "https://asakatsu-article-scorer.latrop.workers.dev/" },
+    { "source": "/tools/score/:path*", "destination": "https://asakatsu-article-scorer.latrop.workers.dev/:path*" }
   ]
 }
