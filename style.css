@@ -945,3 +945,15 @@ h3.swell-h3::after {
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
+
+/* 記事のアイキャッチ */
+.swell-eyecatch {
+  margin: 20px 0 28px;
+}
+.swell-eyecatch img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
