@@ -957,3 +957,18 @@ h3.swell-h3::after {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+
+/* H2直下の節画像（2026-09-09 ユーザー指示で追加。読み進める区切りになる） */
+.swell-h2-img {
+  margin: 18px 0 26px;
+}
+.swell-h2-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 768px) {
+  .swell-h2-img { margin: 14px 0 20px; }
+}
