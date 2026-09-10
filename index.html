@@ -132,11 +132,89 @@
   var boxes = document.querySelectorAll('.swell-bgaudio');
   if (!boxes.length) return;
   var players = [];
+  var RATES = [1, 1.25, 1.5, 1.75, 2];
+
+  function fmt(t) {
+    if (!isFinite(t) || t < 0) return '--:--';
+    var m = Math.floor(t / 60), s = Math.floor(t % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
   Array.prototype.forEach.call(boxes, function (box) {
     var audio = box.querySelector('audio');
     if (!audio) return;
     players.push(audio);
+    audio.removeAttribute('controls');          // 標準プレーヤーは使わず自前のUIに差し替える
+    box.classList.add('is-custom');
+
+    var ui = document.createElement('div');
+    ui.className = 'swell-bgaudio-ui';
+    ui.innerHTML =
+      '<button type="button" class="swell-bgaudio-btn" aria-label="再生">'
+      + '<span class="swell-bgaudio-ico" aria-hidden="true"></span></button>'
+      + '<input type="range" class="swell-bgaudio-seek" value="0" min="0" max="1000" step="1"'
+      + ' aria-label="再生位置" disabled>'
+      + '<span class="swell-bgaudio-time"><span class="cur">0:00</span> / <span class="dur">--:--</span></span>'
+      + '<button type="button" class="swell-bgaudio-rate" aria-label="再生速度を変える">1.0&#215;</button>';
+    box.appendChild(ui);
+
+    var btn = ui.querySelector('.swell-bgaudio-btn');
+    var seek = ui.querySelector('.swell-bgaudio-seek');
+    var cur = ui.querySelector('.cur');
+    var dur = ui.querySelector('.dur');
+    var rateBtn = ui.querySelector('.swell-bgaudio-rate');
+    var scrubbing = false;
+
+    btn.addEventListener('click', function () {
+      if (audio.paused) { audio.play(); } else { audio.pause(); }
+    });
+
+    rateBtn.addEventListener('click', function () {
+      var i = RATES.indexOf(audio.playbackRate);
+      var next = RATES[(i + 1) % RATES.length];
+      audio.playbackRate = next;
+      rateBtn.textContent = (next === Math.floor(next) ? next + '.0' : String(next)) + '×';
+      rateBtn.classList.toggle('is-changed', next !== 1);
+    });
+
+    audio.addEventListener('loadedmetadata', function () {
+      dur.textContent = fmt(audio.duration);
+      seek.disabled = false;
+    });
+
+    audio.addEventListener('timeupdate', function () {
+      if (scrubbing) return;
+      cur.textContent = fmt(audio.currentTime);
+      if (audio.duration) {
+        seek.value = String(Math.round((audio.currentTime / audio.duration) * 1000));
+      }
+    });
+
+    seek.addEventListener('input', function () {
+      scrubbing = true;
+      if (audio.duration) cur.textContent = fmt((seek.value / 1000) * audio.duration);
+    });
+    function commitSeek() {
+      if (!scrubbing) return;
+      scrubbing = false;
+      if (audio.duration) audio.currentTime = (seek.value / 1000) * audio.duration;
+    }
+    seek.addEventListener('change', commitSeek);
+    seek.addEventListener('mouseup', commitSeek);
+    seek.addEventListener('touchend', commitSeek);
+
+    audio.addEventListener('pause', function () {
+      box.classList.remove('is-playing');
+      btn.setAttribute('aria-label', '再生');
+    });
+    audio.addEventListener('ended', function () {
+      box.classList.remove('is-playing');
+      btn.setAttribute('aria-label', '再生');
+    });
+
     audio.addEventListener('play', function () {
+      box.classList.add('is-playing');
+      btn.setAttribute('aria-label', '一時停止');
       players.forEach(function (other) { if (other !== audio) other.pause(); });
       if (!('mediaSession' in navigator)) return;
       try {
