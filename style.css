@@ -973,3 +973,33 @@ h3.swell-h3::after {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+
+/* ========== 音声だけ版（バックグラウンド再生用・2026-09-10 ユーザー指示） ========== */
+.swell-bgaudio {
+  margin: -1.2em 0 2.4em;
+  padding: 16px 18px;
+  background: #f2f7fc;
+  border: 1px solid #d7e5f2;
+  border-left: 4px solid #2b6cb0;
+  border-radius: 10px;
+}
+.swell-bgaudio-note {
+  margin: 0 0 10px;
+  font-size: 0.88em;
+  line-height: 1.6;
+  color: #3d5a75;
+}
+.swell-bgaudio-icon {
+  margin-right: 6px;
+}
+.swell-bgaudio audio {
+  display: block;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .swell-bgaudio {
+    margin: -0.8em 0 1.8em;
+    padding: 14px;
+  }
+  .swell-bgaudio-note { font-size: 0.84em; }
+}

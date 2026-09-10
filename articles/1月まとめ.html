@@ -152,5 +152,39 @@
 <footer class="swell-footer">
   <p>&copy; 2026 朝活ブログ部</p>
 </footer>
+<script>
+(function () {
+  var boxes = document.querySelectorAll('.swell-bgaudio');
+  if (!boxes.length) return;
+  var players = [];
+  Array.prototype.forEach.call(boxes, function (box) {
+    var audio = box.querySelector('audio');
+    if (!audio) return;
+    players.push(audio);
+    audio.addEventListener('play', function () {
+      players.forEach(function (other) { if (other !== audio) other.pause(); });
+      if (!('mediaSession' in navigator)) return;
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: box.getAttribute('data-title') || document.title,
+          artist: '朝活ブログ部',
+          album: document.title,
+          artwork: box.getAttribute('data-artwork')
+            ? [{ src: box.getAttribute('data-artwork'), sizes: '1280x720', type: 'image/jpeg' }]
+            : []
+        });
+        navigator.mediaSession.setActionHandler('play', function () { audio.play(); });
+        navigator.mediaSession.setActionHandler('pause', function () { audio.pause(); });
+        navigator.mediaSession.setActionHandler('seekbackward', function (d) {
+          audio.currentTime = Math.max(0, audio.currentTime - ((d && d.seekOffset) || 15));
+        });
+        navigator.mediaSession.setActionHandler('seekforward', function (d) {
+          audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + ((d && d.seekOffset) || 15));
+        });
+      } catch (e) {}
+    });
+  });
+})();
+</script>
 </body>
 </html>
